@@ -42,6 +42,8 @@ class AdminProjectAdminExtension extends Extension
 
         $container->setParameter('adminproject.admin.configuration.templates', $config['templates']);
         $container->setParameter('adminproject.admin.configuration.options',   $config['options']);
+        $container->setParameter('adminproject.admin.configuration.entities',  $config['entities']);
+        $container->setParameter('adminproject.admin.configuration.groups',    $config['groups']);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');

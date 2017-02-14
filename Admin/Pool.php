@@ -112,4 +112,22 @@ class Pool
 
         return false;
     }
+
+    /**
+     * Returns the entities configuation
+     * @return array
+     */
+    public function getEntities()
+    {
+        return $this->container->getParameter('adminproject.admin.configuration.entities');
+    }
+
+    /**
+     * Returns the admin Groups.
+     * @return array
+     */
+    public function getAdminGroups()
+    {
+        return $this->container->getParameter('adminproject.admin.configuration.groups');
+    }
 }

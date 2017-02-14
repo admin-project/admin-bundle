@@ -7,6 +7,7 @@
 
 namespace AdminProject\AdminBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -36,12 +37,16 @@ class Configuration implements ConfigurationInterface
         $this->addAssetsConfiguration($rootNode);
         $this->addLayoutConfiguration($rootNode);
 
+        $this->addEntitiesConfiguration($rootNode);
+        $this->addAdminGroupsConfiguration($rootNode);
+
         return $treeBuilder;
     }
 
     /**
      * Adds the template configuration
-     * @param $rootNode
+     * @param ArrayNodeDefinition $rootNode
+     * @return void
      */
     private function addTemplateConfiguration($rootNode)
     {
@@ -59,8 +64,9 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * Adds the template configuration
-     * @param $rootNode
+     * Adds the layout configuration
+     * @param ArrayNodeDefinition $rootNode
+     * @return void
      */
     private function addLayoutConfiguration($rootNode)
     {
@@ -80,7 +86,8 @@ class Configuration implements ConfigurationInterface
 
     /**
      * Adds the assets configuration
-     * @param $rootNode
+     * @param ArrayNodeDefinition $rootNode
+     * @return void
      */
     private function addAssetsConfiguration($rootNode)
     {
@@ -106,6 +113,52 @@ class Configuration implements ConfigurationInterface
                                 'bundles/adminprojectadmin/vendor/jquery-ui/themes/base/jquery-ui.min.css',
                                 'bundles/adminprojectadmin/vendor/components-font-awesome/css/font-awesome.min.css',
                             ])->prototype('scalar')->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
+    }
+
+
+    /**
+     * Adds the entities configuration
+     * @param ArrayNodeDefinition $rootNode
+     * @return void
+     */
+    private function addEntitiesConfiguration($rootNode)
+    {
+        $rootNode
+            ->children()
+                ->arrayNode('entities')
+                    ->useAttributeAsKey('name')
+                    ->prototype('array')
+                        ->children()
+                            ->scalarNode('class')->end()
+                            ->scalarNode('label')->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
+    }
+
+
+    /**
+     * Adds the groups configuration
+     * @param ArrayNodeDefinition $rootNode
+     * @return void
+     */
+    private function addAdminGroupsConfiguration($rootNode)
+    {
+        $rootNode
+            ->children()
+                ->arrayNode('groups')
+                    ->useAttributeAsKey('name')
+                    ->prototype('array')
+                        ->children()
+                            ->scalarNode('icon')->default('link')->end()
+                            ->arrayNode('entities')->prototype('scalar')->end()
                         ->end()
                     ->end()
                 ->end()

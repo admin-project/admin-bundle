@@ -4,4 +4,6 @@
 
 {% block body %}
 <h1>Welcome to the Core:dashboard page</h1>
+    {{ dump(admin_pool.getEntities()) }}
+    {{ dump(admin_pool.getAdminGroups()) }}
 {% endblock body %}
