@@ -1,0 +1,3 @@
+# Exclude bower vendor files
+/src/Resources/public/vendor/*
+/src/Resources/doc/_build
