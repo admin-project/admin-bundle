@@ -11,6 +11,7 @@ Getting Started
     :numbered:
 
     getting_started/installation
+    configuration/layout
 
 
 Contributing

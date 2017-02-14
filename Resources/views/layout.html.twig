@@ -13,7 +13,7 @@
         {% endfor %}
     {% endblock %}
 </head>
-<body class="hold-transition skin-red sidebar-mini">
+<body class="hold-transition skin-{{ admin_pool.getLayoutOption('skin') }} sidebar-mini">
     <div class="wrapper">
 
         <!-- Main Header -->
@@ -33,10 +33,14 @@
             <section class="sidebar">
 
                 <!-- Sidebar user panel (optional) -->
-                {#{% include 'AdminProjectAdminBundle:Partials/Layout/Sidebar:userpanel.html.twig' %}#}
+                {% if admin_pool.getLayoutOption('userpanel') %}
+                    {% include 'AdminProjectAdminBundle:Partials/Layout/Sidebar:userpanel.html.twig' %}
+                {% endif %}
 
                 <!-- search form (Optional) -->
-                {% include 'AdminProjectAdminBundle:Partials/Layout/Sidebar:search.html.twig' %}
+                {% if admin_pool.getLayoutOption('search') %}
+                    {% include 'AdminProjectAdminBundle:Partials/Layout/Sidebar:search.html.twig' %}
+                {% endif %}
                 <!-- /.search form -->
 
                 <!-- Sidebar Menu -->

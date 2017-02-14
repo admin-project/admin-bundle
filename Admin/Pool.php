@@ -97,4 +97,19 @@ class Pool
 
         return false;
     }
+
+    /**
+     * Returns a layout option.
+     * @param string $option
+     * @return bool|mixed
+     */
+    public function getLayoutOption($option)
+    {
+        $layoutOptions = $this->getOption('layout', []);
+        if (isset($layoutOptions[$option])) {
+            return $layoutOptions[$option];
+        }
+
+        return false;
+    }
 }
