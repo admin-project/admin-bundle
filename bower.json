@@ -1,0 +1,14 @@
+{
+  "name": "admin-project-admin-bundle",
+  "authors": [
+    "Sebastian Seidelmann"
+  ],
+  "dependencies": {
+    "admin-lte": "^2.3"
+  },
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "*"
+  ]
+}

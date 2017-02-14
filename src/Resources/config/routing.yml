@@ -1,0 +1,3 @@
+dashboard:
+    path:     /dashboard
+    defaults: { _controller: "AdminProjectAdminBundle:Core:dashboard" }

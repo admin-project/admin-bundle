@@ -1,0 +1,7 @@
+services:
+
+  adminproject.admin.pool:
+    class: AdminProject\AdminBundle\Admin\Pool
+    arguments: ["@service_container", "", "", []]
+    calls:
+      - [setTemplates, ["%adminproject.admin.configuration.templates%"]]
