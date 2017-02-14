@@ -10,7 +10,9 @@
         }
     ],
     "require": {
-        "php": "^7.0"
+        "php": "^7.0",
+        "symfony/assetic-bundle": "^2.8",
+        "knplabs/knp-menu-bundle": "^2.0"
     },
     "require-dev": {
     },
