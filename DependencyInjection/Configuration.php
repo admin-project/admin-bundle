@@ -157,7 +157,7 @@ class Configuration implements ConfigurationInterface
                     ->useAttributeAsKey('name')
                     ->prototype('array')
                         ->children()
-                            ->scalarNode('icon')->default('link')->end()
+                            ->scalarNode('icon')->defaultValue('link')->end()
                             ->arrayNode('entities')->prototype('scalar')->end()
                         ->end()
                     ->end()
