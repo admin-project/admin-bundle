@@ -12,6 +12,7 @@ Defines if the userpanel in lefthand navigation should be displayed
 skin
 ----
 Following skins are available:
+
 - black
 - black-light
 - blue
