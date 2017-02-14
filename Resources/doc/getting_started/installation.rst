@@ -25,6 +25,7 @@ Enable the Bundle
         {
             $bundles = array(
                 // ...
+                new Knp\Bundle\MenuBundle\KnpMenuBundle(),
                 new AdminProject\AdminBundle\AdminProjectAdminBundle(),
             );
 
