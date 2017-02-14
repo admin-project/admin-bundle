@@ -1,8 +1,8 @@
 Installation
 ============
 
-Step 1. Download the Bundle
----------------------------
+Download the Bundle
+-------------------
 
 Open a command console, enter your project directory and execute the
 following command to download the latest stable version of this bundle:
@@ -11,8 +11,8 @@ following command to download the latest stable version of this bundle:
 
     $ composer require admin-project/admin-bundle
 
-Step 2: Enable the Bundle
--------------------------
+Enable the Bundle
+-----------------
 
 .. code-block:: php
 
@@ -34,8 +34,8 @@ Step 2: Enable the Bundle
         // ...
     }
 
-Step 3: Configure the Installed Bundles
----------------------------------------
+Configure the Installed Bundles
+-------------------------------
 
 
 .. code-block:: yaml
@@ -43,8 +43,8 @@ Step 3: Configure the Installed Bundles
     # app/config/config.yml
     admin_bundle:
 
-Step 4: Import Routing Configuration
-------------------------------------
+Import Routing Configuration
+----------------------------
 
 .. code-block:: yaml
 
