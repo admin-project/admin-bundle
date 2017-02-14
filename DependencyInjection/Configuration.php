@@ -37,7 +37,6 @@ class Configuration implements ConfigurationInterface
         $this->addAssetsConfiguration($rootNode);
         $this->addLayoutConfiguration($rootNode);
 
-        $this->addEntitiesConfiguration($rootNode);
         $this->addAdminGroupsConfiguration($rootNode);
 
         return $treeBuilder;
@@ -57,6 +56,7 @@ class Configuration implements ConfigurationInterface
                     ->children()
                         ->scalarNode('layout')->defaultValue('AdminProjectAdminBundle::layout.html.twig')->cannotBeEmpty()->end()
                         ->scalarNode('dashboard')->defaultValue('AdminProjectAdminBundle:Core:dashboard.html.twig')->cannotBeEmpty()->end()
+                        ->scalarNode('knp_menu_template')->defaultValue('AdminProjectAdminBundle:Partials/Menu:sidebar.html.twig')->cannotBeEmpty()->end()
                     ->end()
                 ->end()
             ->end()
@@ -122,29 +122,6 @@ class Configuration implements ConfigurationInterface
 
 
     /**
-     * Adds the entities configuration
-     * @param ArrayNodeDefinition $rootNode
-     * @return void
-     */
-    private function addEntitiesConfiguration($rootNode)
-    {
-        $rootNode
-            ->children()
-                ->arrayNode('entities')
-                    ->useAttributeAsKey('name')
-                    ->prototype('array')
-                        ->children()
-                            ->scalarNode('class')->end()
-                            ->scalarNode('label')->end()
-                        ->end()
-                    ->end()
-                ->end()
-            ->end()
-        ;
-    }
-
-
-    /**
      * Adds the groups configuration
      * @param ArrayNodeDefinition $rootNode
      * @return void
@@ -158,7 +135,8 @@ class Configuration implements ConfigurationInterface
                     ->prototype('array')
                         ->children()
                             ->scalarNode('icon')->defaultValue('link')->end()
-                            ->arrayNode('entities')->prototype('scalar')->end()
+                            ->scalarNode('label')->defaultNull()->end()
+                            ->scalarNode('translation_domain')->defaultNull()->end()
                         ->end()
                     ->end()
                 ->end()

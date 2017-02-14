@@ -1,0 +1,6 @@
+services:
+    adminproject.menu.builder:
+        class: AdminProject\AdminBundle\Menu\MenuBuilder
+        arguments: ["@adminproject.admin.pool", "@knp_menu.factory"]
+        tags:
+            - { name: knp_menu.menu_builder, method: createMainMenu, alias: main }

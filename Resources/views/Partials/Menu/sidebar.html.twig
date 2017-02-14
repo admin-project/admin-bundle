@@ -1,0 +1,12 @@
+{% extends "knp_menu.html.twig" %}
+
+{% block linkElement %}
+    <a href="{{ item.uri }}"{{ knp_menu.attributes(item.linkAttributes) }}>
+        <i class="fa fa-{{ item.extra('icon') }}"></i> {{ block('label') }}
+        {% if item.extra('multilevel') %}
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        {% endif %}
+    </a>
+{% endblock %}

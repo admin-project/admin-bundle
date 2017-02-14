@@ -11,6 +11,7 @@ Getting Started
     :numbered:
 
     getting_started/installation
+    getting_started/creating_admin
     configuration/layout
 
 

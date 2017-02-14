@@ -44,7 +44,7 @@
                 <!-- /.search form -->
 
                 <!-- Sidebar Menu -->
-                {% include 'AdminProjectAdminBundle:Partials/Layout/Sidebar:menu.html.twig' %}
+                {{ knp_menu_render('main', { template: admin_pool.getTemplate('knp_menu_template') }) }}
                 <!-- /.sidebar-menu -->
             </section>
             <!-- /.sidebar -->

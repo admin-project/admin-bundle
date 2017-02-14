@@ -42,6 +42,12 @@ class Pool
     private $options = [];
 
     /**
+     * Saves the admin services.
+     * @var AbstractAdmin[]
+     */
+    private $adminServices = [];
+
+    /**
      * Saves the templates.
      * @var array
      */
@@ -60,6 +66,24 @@ class Pool
     }
 
     /**
+     * Returns the container.
+     * @return ContainerInterface
+     */
+    public function getContainer()
+    {
+        return $this->container;
+    }
+
+    /**
+     * Returns the translator.
+     * @return \Symfony\Component\Translation\IdentityTranslator
+     */
+    public function getTranslator()
+    {
+        return $this->container->get('translator');
+    }
+
+    /**
      * Sets the templates
      * @param array $templates
      * @return void
@@ -67,6 +91,16 @@ class Pool
     public function setTemplates(array $templates)
     {
         $this->templates = $templates;
+    }
+
+    /**
+     * Adds a admin service.
+     * @param AbstractAdmin $adminService
+     * @return void
+     */
+    public function addAdminService(AbstractAdmin $adminService)
+    {
+        $this->adminServices[] = $adminService;
     }
 
     /**
@@ -115,11 +149,29 @@ class Pool
 
     /**
      * Returns the entities configuation
-     * @return array
+     * @return AbstractAdmin[]
      */
-    public function getEntities()
+    public function getAdminServices()
     {
-        return $this->container->getParameter('adminproject.admin.configuration.entities');
+        return $this->adminServices;
+    }
+
+    /**
+     * Returns the admin services for given group.
+     * @param string $group
+     * @return AbstractAdmin[]
+     */
+    public function getAdminServicesForGroup($group)
+    {
+        $adminServices = [];
+
+        foreach ($this->adminServices as $adminService) {
+            if (in_array($group, $adminService->getGroups())) {
+                $adminServices[] = $adminService;
+            }
+        }
+
+        return $adminServices;
     }
 
     /**

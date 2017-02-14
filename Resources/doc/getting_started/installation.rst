@@ -55,3 +55,10 @@ Import Routing Configuration
         resource: "@AdminProjectAdminBundle/Resources/config/routing.yml"
         prefix:   /admin/
 
+Enable the translator
+---------------------
+
+.. code-block:: yaml
+
+    # app/config/config.yml
+    translator:      { fallbacks: ["%locale%"] }
