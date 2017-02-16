@@ -7,6 +7,8 @@
 
 namespace AdminProject\AdminBundle\Model;
 
+use AdminProject\AdminBundle\Model\Proxy\QueryProxyInterface;
+
 /**
  * Class ModelManagerInterface
  * @package AdminProject\AdminBundle\Model
@@ -29,7 +31,7 @@ interface ModelManagerInterface
      * @param string $class
      * @param string $alias
      *
-     * @return mixed
+     * @return QueryProxyInterface
      */
     public function createQuery($class, $alias = 'o');
 }

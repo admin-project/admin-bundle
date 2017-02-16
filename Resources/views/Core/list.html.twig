@@ -1,31 +1,56 @@
 {% extends layout %}
 
 {% block body %}
-    <div class="col-xs-12 col-md-12">
-        <div class="box">
-            <div class="box-body {% if admin.datagrid.results|length > 0 %}table-responsive no-padding{% endif %}">
-                {% if admin.datagrid.results|length > 0 %}
-                    <table class="table table-bordered table-striped sonata-ba-list">
-                        {% block table_head %}
-                        <thead>
-                            <tr class="sonata-ba-list-field-header">
-                                {% for field in admin.fieldmapper.all %}
-                                    <th>{{ field.name }}</th>
-                                {% endfor %}
-                            </tr>
-                        </thead>
-                        {% endblock table_head %}
+    <div class="row">
+        <div class="col-xs-12 col-md-12">
+            <div class="box">
 
-                        {% block table_body %}
-                        <tbody>
-                            {% for result in admin.datagrid.results %}
-                                {% include admin_pool.getTemplate('list_row') %}
-                            {% endfor %}
-                        </tbody>
-                        {% endblock table_body %}
-                    </table>
-                {% endif %}
+                <div class="box-body dataTable">
+                    {% if admin.datagrid.results|length > 0 %}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-bordered table-striped sonata-ba-list">
+                                    {% block table_head %}
+                                    <thead>
+                                        <tr class="sonata-ba-list-field-header">
+                                            {% for field in admin.fieldmapper.all %}
+                                                <th>{{ field.name }}</th>
+                                            {% endfor %}
+                                        </tr>
+                                    </thead>
+                                    {% endblock table_head %}
+
+                                    {% block table_body %}
+                                    <tbody>
+                                        {% for result in admin.datagrid.results %}
+                                            {% include admin_pool.getTemplate('list_row') %}
+                                        {% endfor %}
+                                    </tbody>
+                                    {% endblock table_body %}
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">
+                                    Showing {{ (admin.datagrid.pager.page - 1) * admin.datagrid.pager.max + 1 }} to {{ (admin.datagrid.pager.page) * admin.datagrid.pager.max }} of {{ admin.datagrid.pager.numberResults }} entries
+                                </div>
+                            </div>
+                            <div class="col-sm-7" style="text-align: right;">
+                                <ul class="pagination" style="margin: 2px 0px;">
+                                    <li class="paginate_button previous{% if admin.datagrid.pager.page <= 1 %} disabled{% endif %}" id="example2_previous"><a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0">Previous</a></li>
+                                    {% for i in 1..admin.datagrid.pager.lastPage %}
+                                        <li class="paginate_button{% if i == admin.datagrid.pager.page %} active{% endif %}"><a href="#" aria-controls="example2" data-dt-idx="2" tabindex="0">{{ i }}</a></li>
+                                    {% endfor %}
+                                    <li class="paginate_button next{% if admin.datagrid.pager.page > (admin.datagrid.pager.lastPage-1) %} disabled{% endif %}" id="example2_next"><a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0">Next</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    {% endif %}
+                 </div>
             </div>
         </div>
     </div>
+
 {% endblock body %}

@@ -12,6 +12,7 @@ use AdminProject\AdminBundle\Datagrid\DatagridBuilderInterface;
 use AdminProject\AdminBundle\FieldMapper\FieldMapper;
 use AdminProject\AdminBundle\FieldMapper\FieldMapperBuilderInterface;
 use AdminProject\AdminBundle\Model\ModelManagerInterface;
+use AdminProject\AdminBundle\Model\Proxy\QueryProxyInterface;
 use AdminProject\AdminBundle\Route\Builder\AdminRouteCollection;
 use Symfony\Component\Routing\RouteCollection;
 
@@ -484,8 +485,15 @@ abstract class AbstractAdmin
     public function getDatagrid()
     {
         if (!$this->datagrid) {
-            $datagrid = $this->getDatagridBuilder()->createBaseDatagrid($this);
+
+            $parameters = [
+                '_per_page' => 25
+            ];
+
+            $datagrid = $this->getDatagridBuilder()->createBaseDatagrid($this, $parameters);
             $this->configureDatagrid($datagrid);
+
+
 
             $this->datagrid = $datagrid;
         }
@@ -524,8 +532,8 @@ abstract class AbstractAdmin
     }
 
     /**
-     * Creates the query.
-     * @return \Doctrine\ORM\QueryBuilder
+     * Creates the query instance.
+     * @return QueryProxyInterface
      */
     public function createQuery()
     {

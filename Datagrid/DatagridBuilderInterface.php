@@ -19,7 +19,9 @@ interface DatagridBuilderInterface
     /**
      * Creates the base datagrid.
      * @param AbstractAdmin $admin
+     * @param array         $parameters
+     * @param string        $pagerType
      * @return Datagrid
      */
-    public function createBaseDatagrid(AbstractAdmin $admin);
+    public function createBaseDatagrid(AbstractAdmin $admin, array $parameters = [], $pagerType = PagerInterface::PAGER_TYPE_SIMPLE);
 }
