@@ -27,6 +27,8 @@ class AdminProjectAdminExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('core.yml');
         $loader->load('menu.yml');
+        $loader->load('router.yml');
+        $loader->load('twig.yml');
 
         $configuration = $this->getConfiguration($configs, $container);
         $config = $this->processConfiguration($configuration, $configs);

@@ -76,9 +76,12 @@ class MenuBuilder
                 $extras['multilevel'] = true;
 
                 foreach ($children as $adminService) {
+                    ;
                     $item->addChild(
                         $this->pool->getTranslator()->trans($adminService->getLabel(), [], $adminService->getTranslationDomain()),
-                        ['route' => 'homepage']
+                        [
+                            'uri' => $adminService->generateUrl($adminService->getDefaultAction())
+                        ]
                     );
                 }
             } else {

@@ -9,6 +9,7 @@ namespace AdminProject\AdminBundle\Controller;
 
 use AdminProject\AdminBundle\Admin\Pool;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class CoreController
@@ -18,18 +19,26 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class CoreController extends Controller
 {
     /**
+     * Returns the default parameters.
+     * @return array
+     */
+    protected function getDefaultParameters()
+    {
+        return [
+            'layout'             => $this->getLayoutTemplate(),
+            'admin_pool'         => $this->getAdminPool(),
+            'translation_domain' => 'messages'
+        ];
+    }
+
+    /**
      * Renders the dashboard.
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function dashboardAction()
     {
-        return $this->render($this->getAdminPool()->getTemplate('dashboard'), [
-            'layout'     => $this->getLayoutTemplate(),
-            'admin_pool' => $this->getAdminPool()
-        ]);
+        return $this->render($this->getAdminPool()->getTemplate('dashboard'), $this->getDefaultParameters());
     }
-
-
 
     /**
      * Returns the admin pool
@@ -47,5 +56,18 @@ class CoreController extends Controller
     protected function getLayoutTemplate()
     {
         return $this->getAdminPool()->getTemplate('layout');
+    }
+
+    /**
+     * Returns the request
+     * @return Request
+     */
+    protected function getRequest()
+    {
+        if ($this->container->has('request_stack')) {
+            return $this->container->get('request_stack')->getCurrentRequest();
+        }
+
+        return null;
     }
 }

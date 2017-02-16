@@ -1,0 +1,17 @@
+services:
+  adminproject.router:
+    class: AdminProject\AdminBundle\Route\Generator\DefaultRouteGenerator
+    arguments: ["@router", "@adminproject.router.cache"]
+
+  adminproject.router.cache:
+    class: AdminProject\AdminBundle\Route\Cache
+    arguments: ["%kernel.cache_dir%/adminproject/admin", "%kernel.debug%"]
+
+  adminproject.router.loader:
+    class: AdminProject\AdminBundle\Route\AdminRouteLoader
+    arguments: ["@adminproject.admin.pool"]
+    tags:
+      - { name: routing.loader }
+
+  adminproject.router.builder.pathinfo:
+    class: AdminProject\AdminBundle\Route\Builder\PathInfoRouteBuilder

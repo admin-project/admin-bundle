@@ -95,12 +95,13 @@ class Pool
 
     /**
      * Adds a admin service.
+     * @param string        $code
      * @param AbstractAdmin $adminService
      * @return void
      */
-    public function addAdminService(AbstractAdmin $adminService)
+    public function addAdminService($code, AbstractAdmin $adminService)
     {
-        $this->adminServices[] = $adminService;
+        $this->adminServices[$code] = $adminService;
     }
 
     /**
@@ -154,6 +155,16 @@ class Pool
     public function getAdminServices()
     {
         return $this->adminServices;
+    }
+
+    /**
+     * Returns the admin service by code.
+     * @param string $code
+     * @return AbstractAdmin
+     */
+    public function getAdminServiceByCode($code)
+    {
+        return $this->adminServices[$code];
     }
 
     /**

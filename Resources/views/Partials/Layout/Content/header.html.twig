@@ -1,8 +1,14 @@
-
+{#{% trans_default_domain translation_domain %}#}
 <section class="content-header">
     <h1>
-        {% block title %}title{% endblock title %}
-        <small>Optional description</small>
+        {% block title %}
+            {% if admin is defined %}
+                {{ admin.code|trans }}
+                <small>{{ action|trans }}</small>
+            {% else %}
+                dashboard
+            {% endif %}
+        {% endblock%}
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>

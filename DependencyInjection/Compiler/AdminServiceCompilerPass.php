@@ -9,6 +9,7 @@ namespace AdminProject\AdminBundle\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
@@ -34,10 +35,13 @@ class AdminServiceCompilerPass implements CompilerPassInterface
         $taggedServices = $container->findTaggedServiceIds('adminproject.adminservice');
 
         foreach ($taggedServices as $id => $tags) {
-            $definition->addMethodCall('addAdminService', array(new Reference($id)));
+            $definition->addMethodCall('addAdminService', array($id, new Reference($id)));
 
             $service = $container->getDefinition($id);
-            $service->addMethodCall('setAdminPool', [new Reference('adminproject.admin.pool')]);
+            $service->addMethodCall('setAdminPool',             [new Reference('adminproject.admin.pool')]);
+            $service->addMethodCall('setCode',                  [$id]);
+            $service->addMethodCall('setDefaultControllerName', ['AdminProjectAdminBundle:CRUD']);
+            $service->addMethodCall('setDefaultAction',         ['list']);
 
             foreach ($tags as $tag) {
                 if (isset($tag['group'])) {
@@ -46,7 +50,32 @@ class AdminServiceCompilerPass implements CompilerPassInterface
                 if (isset($tag['label'])) {
                     $service->addMethodCall('setLabel', [$tag['label']]);
                 }
+
+                if (isset($tag['manager_type'])) {
+                    $this->applyModelManager($container, $service, $tag['manager_type']);
+                } else {
+                    throw new \Exception('manager_type must be given for service ' . $id);
+                }
             }
         }
+    }
+
+    /**
+     * Apply the model manager.
+     * @param ContainerBuilder $container
+     * @param Definition       $service
+     * @param string           $managerType
+     * @throws \Exception
+     */
+    private function applyModelManager(ContainerBuilder $container, Definition $service, $managerType)
+    {
+        $managerTypeServiceId = sprintf('adminproject.manager.%s', $managerType);
+        if (!$container->has($managerTypeServiceId)) {
+            throw new \Exception('Model Manager ' . $managerTypeServiceId . ' not found');
+        }
+
+        $service->addMethodCall('setModelManager',       [new Reference($managerTypeServiceId)]);
+        $service->addMethodCall('setDatagridBuilder',    [new Reference(sprintf('adminproject.builder.%s_datagrid', $managerType))]);
+        $service->addMethodCall('setFieldmapperBuilder', [new Reference(sprintf('adminproject.builder.%s_fieldmapper', $managerType))]);
     }
 }

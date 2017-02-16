@@ -1,0 +1,5 @@
+<tr>
+    {% for field in admin.fieldmapper.all %}
+        <td class="admin-project-field-type-{{ field.type }}">{{ result|render_list_field(field) }}</td>
+    {% endfor %}
+</tr>

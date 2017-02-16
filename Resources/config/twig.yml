@@ -1,0 +1,6 @@
+services:
+
+  projectadmin.twig.extension:
+    class: AdminProject\AdminBundle\Twig\AdminExtension
+    tags:
+      - { name: twig.extension }
