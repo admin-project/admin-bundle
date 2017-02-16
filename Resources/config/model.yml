@@ -1,0 +1,5 @@
+services:
+
+  # Defines the registry class to register the loaded model managers
+  adminproject.model.manager.registry:
+    class: AdminProject\AdminBundle\Model\ModelManagerRegistry

@@ -20,18 +20,17 @@ use Symfony\Component\DependencyInjection\Loader;
 class AdminProjectAdminExtension extends Extension
 {
     /**
-     * {@inheritdoc}
+     * Loads a specific configuration.
+     * @param array            $configs   An array of configuration values
+     * @param ContainerBuilder $container A ContainerBuilder instance
+     * @return void
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('core.yml');
-        $loader->load('menu.yml');
-        $loader->load('router.yml');
-        $loader->load('twig.yml');
+        $this->loadConfiguration($container);
 
         $configuration = $this->getConfiguration($configs, $container);
-        $config = $this->processConfiguration($configuration, $configs);
+        $config        = $this->processConfiguration($configuration, $configs);
 
         $config['options']['javascripts'] = $config['assets']['javascripts'];
         $config['options']['stylesheets'] = $config['assets']['stylesheets'];
@@ -42,12 +41,23 @@ class AdminProjectAdminExtension extends Extension
         $pool->replaceArgument(2, $config['title_logo']);
         $pool->replaceArgument(3, $config['options']);
 
-
         $container->setParameter('adminproject.admin.configuration.templates', $config['templates']);
         $container->setParameter('adminproject.admin.configuration.options',   $config['options']);
         $container->setParameter('adminproject.admin.configuration.groups',    $config['groups']);
+    }
 
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('services.yml');
+    /**
+     * Loads the configuration files.
+     * @param ContainerBuilder $containerBuilder
+     * @return void
+     */
+    private function loadConfiguration(ContainerBuilder $containerBuilder)
+    {
+        $loader = new Loader\YamlFileLoader($containerBuilder, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader->load('core.yml');
+        $loader->load('menu.yml');
+        $loader->load('router.yml');
+        $loader->load('twig.yml');
+        $loader->load('model.yml');
     }
 }
